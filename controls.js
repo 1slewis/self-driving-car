@@ -43,6 +43,7 @@ class Controls {
 		document.onkeypress = (event)=>{
 			if (parseInt(event.key)) {
 				car.acceleration = 0.1 * parseInt(event.key);
+				car.decceleration = 0.03 * parseInt(event.key);
 			}
 		}
 	}

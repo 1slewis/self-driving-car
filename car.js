@@ -6,19 +6,20 @@ class Car {
 		this.height = height;
 		this.speed = 0;
 		this.acceleration = 0.5;
-		this.maxSpeed = 10;
+		this.decceleration = 0.16;
 		this.minSpeed = 0.1;
 		this.friction = 1.05;
 		this.angle = 0;
 		this.angularAcceleration = 0.01;
 		this.controls = new Controls();
+		this.animate = 0;
 	}
 	update() {
 		if (this.controls.forward) {
 			this.speed += this.acceleration;
 		}
 		if (this.controls.reverse) {
-			this.speed -= this.acceleration;
+			this.speed -= this.decceleration;
 		}
 		if (this.controls.left) {
 			this.angle -= this.angularAcceleration * this.speed;
@@ -26,16 +27,7 @@ class Car {
 		if (this.controls.right) {
 			this.angle += this.angularAcceleration * this.speed;
 		}
-		if (this.speed > this.maxSpeed) {
-			this.speed = this.maxSpeed;
-		}
-		if (this.speed < -this.maxSpeed / 3) {
-			this.speed = -this.maxSpeed / 3;
-		}
-		if (Math.abs(this.speed) < this.minSpeed) {
-			this.speed = 0;
-		}
-
+		this.angle %= 2 * Math.PI;
 		this.speed /= this.friction;
 		this.x += Math.sin(this.angle) * this.speed;
 		this.y -= Math.cos(this.angle) * this.speed;
